@@ -13,7 +13,7 @@ export const servicesData = [
         ],
         pricePerHour: 25.00,
         icon: "baby_care_premium",
-        image: "file:///C:/Users/imtia/.gemini/antigravity/brain/047017b1-f27d-4af0-9fa8-b04277ad8175/baby_care_premium_1766915296751.png",
+        image: "https://images.unsplash.com/photo-1761891928740-840ed75169e4?q=80&w=1170&auto=format&fit=crop",
     },
     {
         id: "elderly-care",
@@ -29,7 +29,7 @@ export const servicesData = [
         ],
         pricePerHour: 30.00,
         icon: "hero_caregiving_premium",
-        image: "file:///C:/Users/imtia/.gemini/antigravity/brain/047017b1-f27d-4af0-9fa8-b04277ad8175/hero_caregiving_premium_1766915280039.png",
+        image: "https://images.unsplash.com/photo-1761891954120-7dce2a8bd06c?q=80&w=687&auto=format&fit=crop",
     },
     {
         id: "sick-care",
@@ -45,6 +45,6 @@ export const servicesData = [
         ],
         pricePerHour: 28.00,
         icon: "patient_care_premium",
-        image: "file:///C:/Users/imtia/.gemini/antigravity/brain/047017b1-f27d-4af0-9fa8-b04277ad8175/patient_care_premium_1766915316840.png",
+        image: "https://images.unsplash.com/photo-1761891954360-46584d557d8a?q=80&w=687&auto=format&fit=crop",
     },
 ];

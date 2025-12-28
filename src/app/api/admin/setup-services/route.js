@@ -5,7 +5,10 @@ import { upsertService } from "@/lib/collections/services";
 export async function POST() {
     try {
         const results = await Promise.all(
-            servicesData.map((service) => upsertService(service))
+            servicesData.map((service) => {
+                const { id, ...data } = service;
+                return upsertService(data);
+            })
         );
 
         return NextResponse.json({

@@ -75,7 +75,7 @@ export default function ServicesPage() {
                     >
                         {services.map((service) => (
                             <motion.div
-                                key={service.id}
+                                key={service._id}
                                 variants={itemVariants}
                                 className="group bg-white rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col overflow-hidden"
                             >
@@ -122,13 +122,13 @@ export default function ServicesPage() {
 
                                     <div className="grid grid-cols-2 gap-4 mt-auto">
                                         <Link
-                                            href={`/services/${service.id}`}
+                                            href={`/services/${service._id}`}
                                             className="flex items-center justify-center py-4 px-6 bg-slate-50 text-slate-900 font-bold rounded-2xl hover:bg-slate-100 transition-colors"
                                         >
                                             Details
                                         </Link>
                                         <Link
-                                            href={`/booking/${service.id}`}
+                                            href={`/booking/${service._id}`}
                                             className="flex items-center justify-center gap-2 py-4 px-6 bg-slate-900 text-white font-bold rounded-2xl shadow-lg shadow-slate-900/10 hover:shadow-slate-900/20 hover:-translate-y-0.5 transition-all"
                                         >
                                             Book <ArrowRight size={18} />

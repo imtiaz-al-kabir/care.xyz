@@ -14,24 +14,19 @@ export async function getAllServices() {
 }
 
 export async function getServiceById(id) {
+    if (!ObjectId.isValid(id)) return null;
     const services = await getServicesCollection();
-    // Try finding by string ID first (legacy/slug)
-    let service = await services.findOne({ id: id });
-
-    // If not found and it looks like an ObjectId, try that
-    if (!service && ObjectId.isValid(id)) {
-        service = await services.findOne({ _id: new ObjectId(id) });
-    }
-
-    return service;
+    return await services.findOne({ _id: new ObjectId(id) });
 }
 
 export async function upsertService(serviceData) {
     const services = await getServicesCollection();
-    const { id, ...data } = serviceData;
+    const { _id, ...data } = serviceData;
+
+    const query = _id ? { _id: new ObjectId(_id) } : { title: data.title };
 
     const result = await services.updateOne(
-        { id: id },
+        query,
         {
             $set: {
                 ...data,
@@ -46,6 +41,7 @@ export async function upsertService(serviceData) {
 }
 
 export async function deleteService(id) {
+    if (!ObjectId.isValid(id)) return null;
     const services = await getServicesCollection();
-    return await services.deleteOne({ id: id });
+    return await services.deleteOne({ _id: new ObjectId(id) });
 }

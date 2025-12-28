@@ -115,7 +115,7 @@ export default function ServiceDetailClient({ service }) {
 
                                 <div className="space-y-4">
                                     <Link
-                                        href={`/booking/${service.id}`}
+                                        href={`/booking/${service._id}`}
                                         className="flex items-center justify-center gap-3 w-full py-5 px-8 bg-slate-900 text-white text-xl font-bold rounded-[2rem] shadow-xl shadow-slate-900/10 hover:shadow-slate-900/20 hover:-translate-y-1 transition-all"
                                     >
                                         Book Now <ArrowRight size={22} />

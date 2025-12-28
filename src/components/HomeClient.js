@@ -130,8 +130,8 @@ export default function HomeClient() {
             >
               <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700">
                 <Image
-                  width={100}
-                  height={100}
+                  width={1200}
+                  height={1500}
                   src="https://images.unsplash.com/photo-1761891954433-4d9664446d27?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Caregiving"
                   className="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-700"
@@ -209,15 +209,18 @@ export default function HomeClient() {
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
           >
             {!loading && services.map((service) => {
-              const { icon: Icon, color } = serviceIcons[service.id] || defaultIcon;
+              const iconKey = service.id || service.title?.toLowerCase().replace(/\s+/g, '-');
+              const { icon: Icon, color } = serviceIcons[iconKey] || defaultIcon;
               return (
                 <motion.div
-                  key={service.id}
+                  key={service._id}
                   variants={itemVariants}
                   className="group relative bg-slate-50 rounded-3xl p-2 transition-all duration-500 hover:bg-white hover:shadow-2xl border border-transparent hover:border-slate-100"
                 >
                   <div className="aspect-[4/3] rounded-2xl overflow-hidden mb-6">
-                    <img
+                    <Image
+                      width={800}
+                      height={600}
                       src={service.image}
                       alt={service.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
@@ -236,7 +239,7 @@ export default function HomeClient() {
                       {service.shortDescription}
                     </p>
                     <Link
-                      href={`/services/${service.id}`}
+                      href={`/services/${service._id}`}
                       className="inline-flex items-center gap-2 font-bold text-slate-900 hover:text-teal-600 transition-colors"
                     >
                       Learn more{" "}
@@ -318,9 +321,9 @@ export default function HomeClient() {
             <div className="relative">
               <div className="relative z-10 p-2 bg-white/5 rounded-[3rem] border border-white/10 backdrop-blur-sm overflow-hidden">
                 <Image
-                  width={100}
-                  height={100}
-                  src="https://images.unsplash.com/photo-1761891954433-4d9664446d27?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  width={1200}
+                  height={1500}
+                  src="https://images.unsplash.com/photo-1734943842257-268c716c2701?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Care Expert"
                   className="rounded-[2.5rem] w-full shadow-2xl"
                 />
