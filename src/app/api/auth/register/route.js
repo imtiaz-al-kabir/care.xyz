@@ -52,8 +52,13 @@ export async function POST(request) {
     } catch (error) {
         console.error("Registration error:", error);
         return NextResponse.json(
-            { success: false, message: "Failed to register user" },
-            { status: 500 }
+            {
+                success: false,
+                message: "Failed to register user",
+                details: error.message,
+                dbConnected: error.message.includes("Database Connection Failed") ? false : true
+            },
+            { status: error.message.includes("Database Connection Failed") ? 503 : 500 }
         );
     }
 }

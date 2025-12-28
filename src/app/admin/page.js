@@ -10,8 +10,11 @@ import {
   DollarSign,
   Search,
   Users,
+  Database,
+  Loader2
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -21,6 +24,7 @@ export default function AdminDashboard() {
     totalUsers: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [seeding, setSeeding] = useState(false);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -40,6 +44,36 @@ export default function AdminDashboard() {
 
     fetchStats();
   }, []);
+
+  const handleRestoreServices = async () => {
+    setSeeding(true);
+    try {
+      const response = await fetch("/api/admin/setup-services", {
+        method: "POST",
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        Swal.fire({
+          title: "Success!",
+          text: data.message || "Service data has been restored successfully.",
+          icon: "success",
+          confirmButtonColor: "#0d9488",
+        });
+      } else {
+        throw new Error(data.error || "Failed to restore services");
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Error!",
+        text: error.message,
+        icon: "error",
+        confirmButtonColor: "#e11d48",
+      });
+    } finally {
+      setSeeding(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -132,11 +166,10 @@ export default function AdminDashboard() {
                 <stat.icon size={28} />
               </div>
               <div
-                className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full ${
-                  stat.isPositive
+                className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full ${stat.isPositive
                     ? "bg-emerald-50 text-emerald-600"
                     : "bg-rose-50 text-rose-600"
-                }`}
+                  }`}
               >
                 {stat.isPositive ? (
                   <ArrowUpRight size={14} />
@@ -234,9 +267,36 @@ export default function AdminDashboard() {
                   <span>Healthy</span>
                 </div>
               </div>
+
+              {/* Restore Service Data Section */}
+              <div className="p-6 bg-teal-500/10 rounded-2xl border border-teal-500/20">
+                <div className="flex items-center gap-3 mb-4">
+                  <Database size={18} className="text-teal-400" />
+                  <p className="text-white text-xs font-bold uppercase tracking-widest">
+                    Data Recovery
+                  </p>
+                </div>
+                <p className="text-white/60 text-xs mb-4 leading-relaxed">
+                  If service cards are missing after deployment, use the button below to restore them to your database.
+                </p>
+                <button
+                  onClick={handleRestoreServices}
+                  disabled={seeding}
+                  className="w-full py-3 px-4 bg-teal-600 hover:bg-teal-500 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2"
+                >
+                  {seeding ? (
+                    <>
+                      <Loader2 size={14} className="animate-spin" />
+                      Restoring...
+                    </>
+                  ) : (
+                    "Restore Service Data"
+                  )}
+                </button>
+              </div>
             </div>
 
-            <button className="w-full py-4 px-6 bg-teal-600 hover:bg-teal-500 rounded-2xl text-sm font-bold transition-all mt-6 shadow-xl shadow-teal-600/20">
+            <button className="w-full py-4 px-6 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl text-sm font-bold transition-all mt-6">
               View System Logs
             </button>
           </div>

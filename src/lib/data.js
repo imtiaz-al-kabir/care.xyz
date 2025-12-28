@@ -1,50 +1,58 @@
 export const servicesData = [
-    {
-        id: "baby-care",
-        title: "Elite Baby Care",
-        shortDescription: "Premium nurturing and development for your little ones.",
-        fullDescription: "Our Elite Baby Care service provides highly trained, background-verified nannies who specialize in early childhood development. We don't just 'sit'—we engage, educate, and ensure a world-class environment for your child's growth and safety.",
-        features: [
-            "University-Trained Nannies",
-            "Developmental Milestones Tracking",
-            "Advanced First Aid & CPR Certified",
-            "Nutrition-Focused Meal Planning",
-            "Bi-lingual Support Available",
-        ],
-        pricePerHour: 25.00,
-        icon: "baby_care_premium",
-        image: "https://images.unsplash.com/photo-1761891928740-840ed75169e4?q=80&w=1170&auto=format&fit=crop",
-    },
-    {
-        id: "elderly-care",
-        title: "Dignified Elderly Care",
-        shortDescription: "Compassionate, high-end companionship and clinical assistance.",
-        fullDescription: "Designed for those who deserve the best in their golden years. Our caregivers provide luxury-level companionship, rigorous medication management, and mobility support, all while maintaining the highest standards of dignity and independence.",
-        features: [
-            "24/7 Clinical Monitoring",
-            "Concierge-Level Companionship",
-            "Dementia & Alzheimer's Specialists",
-            "Social Engagement Programs",
-            "Physical Therapy Coordination",
-        ],
-        pricePerHour: 30.00,
-        icon: "hero_caregiving_premium",
-        image: "https://images.unsplash.com/photo-1761891954120-7dce2a8bd06c?q=80&w=687&auto=format&fit=crop",
-    },
-    {
-        id: "sick-care",
-        title: "Patient Recovery Support",
-        shortDescription: "Specialized clinical care for accelerated healing at home.",
-        fullDescription: "Our Patient Recovery Support bridge the gap between hospital and home. With a focus on accelerated healing, we provide post-operative monitoring, wound care, and specialized rehab support in a comfortable, premium environment.",
-        features: [
-            "Post-Surgical Rehab Experts",
-            "Vitals & Pain Management",
-            "In-Home Physical Therapy",
-            "Dietary Recovery Planning",
-            "Direct Doctor Liaison",
-        ],
-        pricePerHour: 28.00,
-        icon: "patient_care_premium",
-        image: "https://images.unsplash.com/photo-1761891954360-46584d557d8a?q=80&w=687&auto=format&fit=crop",
-    },
+  {
+    id: "baby-care",
+    title: "Elite Baby Care",
+    shortDescription: "Premium nurturing and development for your little ones.",
+    fullDescription:
+      "Our Elite Baby Care service provides highly trained, background-verified nannies who specialize in early childhood development. We don't just 'sit'—we engage, educate, and ensure a world-class environment for your child's growth and safety.",
+    features: [
+      "University-Trained Nannies",
+      "Developmental Milestones Tracking",
+      "Advanced First Aid & CPR Certified",
+      "Nutrition-Focused Meal Planning",
+      "Bi-lingual Support Available",
+    ],
+    pricePerHour: 25.0,
+    icon: "baby_care_premium",
+    image:
+      "https://images.unsplash.com/photo-1761891928740-840ed75169e4?q=80&w=1170&auto=format&fit=crop",
+  },
+  {
+    id: "elderly-care",
+    title: "Dignified Elderly Care",
+    shortDescription:
+      "Compassionate, high-end companionship and clinical assistance.",
+    fullDescription:
+      "Designed for those who deserve the best in their golden years. Our caregivers provide luxury-level companionship, rigorous medication management, and mobility support, all while maintaining the highest standards of dignity and independence.",
+    features: [
+      "24/7 Clinical Monitoring",
+      "Concierge-Level Companionship",
+      "Dementia & Alzheimer's Specialists",
+      "Social Engagement Programs",
+      "Physical Therapy Coordination",
+    ],
+    pricePerHour: 30.0,
+    icon: "hero_caregiving_premium",
+    image:
+      "https://images.unsplash.com/photo-1761891954120-7dce2a8bd06c?q=80&w=687&auto=format&fit=crop",
+  },
+  {
+    id: "sick-care",
+    title: "Patient Recovery Support",
+    shortDescription:
+      "Specialized clinical care for accelerated healing at home.",
+    fullDescription:
+      "Our Patient Recovery Support bridge the gap between hospital and home. With a focus on accelerated healing, we provide post-operative monitoring, wound care, and specialized rehab support in a comfortable, premium environment.",
+    features: [
+      "Post-Surgical Rehab Experts",
+      "Vitals & Pain Management",
+      "In-Home Physical Therapy",
+      "Dietary Recovery Planning",
+      "Direct Doctor Liaison",
+    ],
+    pricePerHour: 28.0,
+    icon: "patient_care_premium",
+    image:
+      "https://images.unsplash.com/photo-1761891954360-46584d557d8a?q=80&w=687&auto=format&fit=crop",
+  },
 ];

@@ -1,18 +1,39 @@
 "use client";
 
 import Link from "next/link";
-import { signIn } from "next-auth/react";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Mail, Lock, ArrowRight, Github, Chrome, ShieldCheck } from "lucide-react";
+import { Mail, Lock, ArrowRight, Chrome, ShieldCheck } from "lucide-react";
 
-export default function LoginPage() {
+function LoginContent() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const { data: session, status } = useSession();
+    const callbackUrl = searchParams.get("callbackUrl") || "/my-bookings";
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+
+    // Redirect if already authenticated
+    useEffect(() => {
+        if (status === "authenticated" && session?.user) {
+            // If explicit callbackUrl exists and isn't the default, use it
+            if (searchParams.get("callbackUrl")) {
+                router.push(callbackUrl);
+            } else {
+                // Default redirection based on role
+                if (session.user.role === "admin") {
+                    router.push("/admin/bookings");
+                } else {
+                    router.push("/my-bookings");
+                }
+            }
+        }
+    }, [status, session, router, callbackUrl, searchParams]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,22 +50,13 @@ export default function LoginPage() {
             setError("Invalid credentials. Please check your email and password.");
             setIsLoading(false);
         } else {
-            // Check role from session or a separate check
-            // For simplicity and immediate action, we'll fetch the session
-            const res = await fetch('/api/auth/session');
-            const session = await res.json();
-
-            if (session?.user?.role === "admin") {
-                router.push("/admin/bookings");
-            } else {
-                router.push("/my-bookings");
-            }
+            // Success handler is shared via useEffect above
             router.refresh();
         }
     };
 
     const handleGoogleLogin = () => {
-        signIn("google");
+        signIn("google", { callbackUrl });
     };
 
     return (
@@ -160,19 +172,30 @@ export default function LoginPage() {
                         </button>
                     </div>
 
-                    <p className="mt-10 text-center text-sm text-slate-500 font-medium">
+                    <div className="mt-10 text-center text-sm text-slate-500 font-medium whitespace-nowrap">
                         New to Care.xyz?{" "}
-                        <Link href="/register" className="text-teal-600 font-bold hover:text-teal-700 transition-colors">
-                            Create Premium Account
+                        <Link href={`/register${callbackUrl ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`} className="text-teal-600 font-bold hover:text-teal-700 transition-colors">
+                            Create Account
                         </Link>
-                    </p>
+                    </div>
                 </div>
 
-                {/* Footer Link */}
                 <div className="text-center mt-8 text-slate-400 text-xs font-medium uppercase tracking-widest">
                     &copy; {new Date().getFullYear()} Care.xyz Global • Trusted Care Network
                 </div>
             </motion.div>
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center bg-white">
+                <div className="w-12 h-12 border-4 border-teal-500/20 border-t-teal-500 rounded-full animate-spin" />
+            </div>
+        }>
+            <LoginContent />
+        </Suspense>
     );
 }
