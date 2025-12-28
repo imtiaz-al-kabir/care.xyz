@@ -83,7 +83,7 @@ export const sendInvoiceEmail = async (bookingData) => {
             html: htmlContent,
         });
 
-        console.log("Message sent: %s", info.messageId);
+
         return { success: true, messageId: info.messageId };
     } catch (error) {
         console.error("Error sending real invoice email:", error);

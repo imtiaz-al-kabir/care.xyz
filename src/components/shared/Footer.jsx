@@ -124,7 +124,7 @@ const Footer = () => {
                         &copy; {new Date().getFullYear()} <span className="text-slate-400 font-bold">Care.xyz</span>. Bangladesh's most trusted care network.
                     </div>
                     <div className="flex items-center gap-2 text-slate-500 text-sm">
-                        Made with <Heart size={14} className="text-teal-500 fill-teal-500" /> by <span className="text-slate-400 font-bold hover:text-teal-400 transition-colors cursor-pointer">Antigravity Team</span>
+                        Made with <Heart size={14} className="text-teal-500 fill-teal-500" /> by <span className="text-slate-400 font-bold hover:text-teal-400 transition-colors cursor-pointer">IMTIAZ AL KABIR</span>
                     </div>
                 </div>
             </div>

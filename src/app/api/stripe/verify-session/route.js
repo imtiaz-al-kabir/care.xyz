@@ -19,7 +19,9 @@ export async function GET(request) {
         const existingBooking = await bookingsColl.findOne({ stripeSessionId: sessionId });
 
         if (existingBooking) {
-            return NextResponse.json({ success: true, message: "Booking already exists", booking: existingBooking });
+            // Even if booking exists, we might need session for metadata in frontend
+            const session = await stripe.checkout.sessions.retrieve(sessionId);
+            return NextResponse.json({ success: true, message: "Booking already exists", booking: existingBooking, session });
         }
 
         // 2. Fetch session from Stripe to get metadata
@@ -30,7 +32,7 @@ export async function GET(request) {
         }
 
         // 3. Get booking data from metadata
-        const bookingData = JSON.parse(session.metadata.bookingData);
+        const bookingData = JSON.parse(session.metadata.bookingData || "{}");
         const userId = session.metadata.userId;
 
         // 4. Create the booking (fallback)
@@ -56,6 +58,7 @@ export async function GET(request) {
             success: true,
             message: "Booking synced successfully",
             booking,
+            session, // Return session here too
         });
     } catch (error) {
         console.error("Session verification error:", error);

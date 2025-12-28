@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { locationData } from "@/lib/locationData";
+import PrivateRoute from "@/components/PrivateRoute";
 import {
     Calendar,
     Clock,
@@ -19,6 +20,14 @@ import {
 } from "lucide-react";
 
 export default function BookingPage({ params }) {
+    return (
+        <PrivateRoute>
+            <BookingContent params={params} />
+        </PrivateRoute>
+    );
+}
+
+function BookingContent({ params }) {
     const { id } = use(params);
     const router = useRouter();
     const { data: session, status } = useSession();
@@ -73,6 +82,7 @@ export default function BookingPage({ params }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // With PrivateRoute, status should already be authenticated, but extra check doesn't hurt
         if (status !== "authenticated") {
             router.push("/login?callbackUrl=/booking/" + id);
             return;
@@ -109,7 +119,7 @@ export default function BookingPage({ params }) {
         }
     };
 
-    if (status === "loading" || loadingService) {
+    if (loadingService) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-white">
                 <div className="w-12 h-12 border-4 border-teal-500/20 border-t-teal-500 rounded-full animate-spin" />
@@ -274,21 +284,6 @@ export default function BookingPage({ params }) {
                                 </div>
                             </section>
 
-                            {/* Guard/Auth Note */}
-                            {status === "unauthenticated" && (
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    className="p-6 bg-rose-50 border border-rose-100 rounded-3xl flex items-start gap-4"
-                                >
-                                    <AlertCircle className="text-rose-500 shrink-0 mt-1" size={20} />
-                                    <div>
-                                        <p className="text-rose-900 font-bold mb-1">Authenticated Booking Only</p>
-                                        <p className="text-sm text-rose-700">You need to be logged in to access our secure Stripe checkout. We'll redirect you to login when you confirm.</p>
-                                    </div>
-                                </motion.div>
-                            )}
-
                             <button
                                 type="submit"
                                 disabled={submitting}
@@ -297,9 +292,7 @@ export default function BookingPage({ params }) {
                                 {submitting ? (
                                     <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
                                 ) : (
-                                    <>
-                                        {status === "unauthenticated" ? "Login to Book" : "Confirm & Pay"} <ArrowRight size={22} />
-                                    </>
+                                    <span className="flex items-center gap-2">Confirm & Pay <ArrowRight size={22} /></span>
                                 )}
                             </button>
                         </form>

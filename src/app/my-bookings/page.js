@@ -5,8 +5,17 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, MapPin, Clock, DollarSign, AlertCircle, CheckCircle2, XCircle, FileText, ArrowRight, ExternalLink } from "lucide-react";
+import PrivateRoute from "@/components/PrivateRoute";
 
 export default function MyBookingsPage() {
+    return (
+        <PrivateRoute>
+            <MyBookingsContent />
+        </PrivateRoute>
+    );
+}
+
+function MyBookingsContent() {
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const { data: session } = useSession();
@@ -14,14 +23,11 @@ export default function MyBookingsPage() {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await fetch("/api/bookings");
+                const response = await fetch(`/api/bookings?userId=${session.user.id}`);
                 const data = await response.json();
 
                 if (data.success) {
-                    const userBookings = session?.user?.id
-                        ? data.bookings.filter(b => b.userId === session.user.id)
-                        : [];
-                    setBookings(userBookings);
+                    setBookings(data.bookings || []);
                 }
             } catch (error) {
                 console.error("Failed to fetch bookings:", error);

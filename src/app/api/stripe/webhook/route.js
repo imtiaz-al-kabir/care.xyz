@@ -51,7 +51,7 @@ export async function POST(request) {
                     }
                 );
 
-                console.log("Booking created:", booking._id);
+
                 break;
 
             case "payment_intent.payment_failed":
@@ -64,7 +64,7 @@ export async function POST(request) {
                 break;
 
             default:
-                console.log(`Unhandled event type: ${event.type}`);
+
         }
 
         return NextResponse.json({ received: true });

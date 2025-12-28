@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import Swal from "sweetalert2";
 
 function PaymentSuccessContent() {
     const searchParams = useSearchParams();
@@ -16,7 +17,30 @@ function PaymentSuccessContent() {
                     const response = await fetch(`/api/stripe/verify-session?session_id=${sessionId}`);
                     const data = await response.json();
                     if (data.success) {
-                        console.log("Payment verified and booking synced");
+
+                        // Trigger invoice email
+                        fetch("/api/send-invoice", {
+                            method: "POST",
+                            body: JSON.stringify({ bookingData: data.session.metadata.bookingData ? JSON.parse(data.session.metadata.bookingData) : {} }),
+                            headers: { "Content-Type": "application/json" }
+                        })
+                            .then(() => {
+                                Swal.fire({
+                                    title: "Invoice Sent!",
+                                    text: "A professional invoice has been sent to your email.",
+                                    icon: "success",
+                                    iconColor: "#0d9488",
+                                    confirmButtonColor: "#0d9488",
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    background: "#ffffff",
+                                    customClass: {
+                                        popup: "rounded-[2rem]",
+                                        confirmButton: "rounded-xl px-8 py-3 font-bold"
+                                    }
+                                });
+                            })
+                            .catch(e => console.error("Email trigger failed:", e));
                     }
                 } catch (error) {
                     console.error("Verification failed:", error);

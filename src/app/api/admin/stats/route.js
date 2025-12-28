@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { countBookings } from "@/lib/collections/bookings";
 import { countPayments, getSucceededPayments } from "@/lib/collections/payments";
 import { countUsers } from "@/lib/collections/users";

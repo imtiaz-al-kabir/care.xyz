@@ -1,19 +1,12 @@
 import { NextResponse } from "next/server";
-import { createBooking, getAllBookings } from "@/lib/collections/bookings";
-import { sendInvoiceEmail } from "@/lib/sendEmail";
+import { getServerSession } from "next-auth";
+import { createBooking, getAllBookings, getBookingsCollection } from "@/lib/collections/bookings";
+import { authOptions } from "@/lib/auth";
 
 export async function POST(request) {
     try {
         const bookingData = await request.json();
         const booking = await createBooking(bookingData);
-
-        // Send confirmation email/invoice
-        try {
-            await sendInvoiceEmail(bookingData);
-        } catch (emailError) {
-            console.error("Failed to send invoice email:", emailError);
-            // We don't fail the entire request if email fails
-        }
 
         return NextResponse.json({
             success: true,
@@ -28,9 +21,24 @@ export async function POST(request) {
     }
 }
 
-export async function GET() {
+export async function GET(request) {
     try {
-        const bookings = await getAllBookings();
+        const session = await getServerSession(authOptions);
+
+        const { searchParams } = new URL(request.url);
+        const userId = searchParams.get("userId");
+
+        let bookings;
+        if (session?.user?.role === "admin" && !userId) {
+            bookings = await getAllBookings();
+        } else {
+            const targetId = userId || session?.user?.id;
+            if (!targetId) {
+                return NextResponse.json({ success: true, bookings: [] });
+            }
+            const collection = await getBookingsCollection();
+            bookings = await collection.find({ userId: targetId }).sort({ createdAt: -1 }).toArray();
+        }
 
         return NextResponse.json({
             success: true,

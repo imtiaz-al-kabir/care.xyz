@@ -50,7 +50,8 @@ export default function RegisterPage() {
             const data = await response.json();
 
             if (data.success) {
-                router.push("/login?registered=true");
+                // If they came from a specific service booking, we could redirect there
+                router.push("/login?message=Account created! Please login to complete your booking.");
             } else {
                 setError(data.message || "Registration failed. Please try again.");
                 setIsLoading(false);

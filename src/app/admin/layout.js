@@ -17,38 +17,27 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import AdminRoute from "@/components/AdminRoute";
 
 export default function AdminLayout({ children }) {
+  return (
+    <AdminRoute>
+      <AdminLayoutContent children={children} />
+    </AdminRoute>
+  );
+}
+
+function AdminLayoutContent({ children }) {
   const pathname = usePathname();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (status === "loading") return;
-
-    if (!session || session.user.role !== "admin") {
-      router.push("/");
-    }
-  }, [session, status, router]);
 
   // Close mobile menu on path change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
-
-  if (status === "loading") {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="w-12 h-12 border-4 border-teal-500/20 border-t-teal-500 rounded-full animate-spin" />
-      </div>
-    );
-  }
-
-  if (!session || session.user.role !== "admin") {
-    return null;
-  }
 
   const navItems = [
     { name: "Back to Website", href: "/", icon: Globe },
@@ -84,19 +73,17 @@ export default function AdminLayout({ children }) {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-4 px-4 py-4 rounded-2xl transition-all group relative ${
-                isActive
+              className={`flex items-center gap-4 px-4 py-4 rounded-2xl transition-all group relative ${isActive
                   ? "bg-slate-900 text-white shadow-lg shadow-slate-900/10"
                   : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
-              }`}
+                }`}
             >
               <item.icon
                 size={22}
-                className={`shrink-0 ${
-                  isActive
+                className={`shrink-0 ${isActive
                     ? "text-teal-400"
                     : "group-hover:text-teal-600 transition-colors"
-                }`}
+                  }`}
               />
               {(isSidebarOpen || isMobile) && (
                 <motion.span
@@ -218,14 +205,14 @@ export default function AdminLayout({ children }) {
             </Link>
             <div className="hidden sm:flex flex-col items-end">
               <span className="text-sm font-bold text-slate-900">
-                {session.user.name}
+                {session?.user?.name}
               </span>
               <span className="text-[10px] text-teal-600 font-bold uppercase tracking-wider">
                 Super Administrator
               </span>
             </div>
             <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-slate-900/10">
-              {session.user.name?.charAt(0) || "A"}
+              {session?.user?.name?.charAt(0) || "A"}
             </div>
           </div>
         </header>
