@@ -13,8 +13,8 @@
 //   matcher: ["/booking/:path*", "/my-bookings"],
 // };
 
-export default function middleware() {
-    // Middleware disabled for demo
+export default function proxy() {
+    // Proxy disabled for demo
 }
 
 export const config = {

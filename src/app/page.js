@@ -1,6 +1,7 @@
 import HomeClient from "@/components/HomeClient";
 
 export const metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: "Care.xyz | Premium Home Care Services for Your Family",
   description: "Professional, verified, and compassionate home care for babies, elderly, and patients. Experience elite caregiving with Care.xyz. Trusted by 10,000+ happy families.",
   openGraph: {

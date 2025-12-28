@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { servicesData } from "@/lib/data";
 import { locationData } from "@/lib/locationData";
 import {
     Calendar,
@@ -23,7 +22,28 @@ export default function BookingPage({ params }) {
     const { id } = use(params);
     const router = useRouter();
     const { data: session, status } = useSession();
-    const service = servicesData.find((s) => s.id === id);
+    const [service, setService] = useState(null);
+    const [loadingService, setLoadingService] = useState(true);
+
+    useEffect(() => {
+        const fetchService = async () => {
+            try {
+                const response = await fetch(`/api/services/${id}`);
+                const data = await response.json();
+                if (data.error) {
+                    setService(null);
+                } else {
+                    setService(data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch service:", error);
+            } finally {
+                setLoadingService(false);
+            }
+        };
+
+        fetchService();
+    }, [id]);
 
     const [formData, setFormData] = useState({
         duration: 1,
@@ -89,7 +109,7 @@ export default function BookingPage({ params }) {
         }
     };
 
-    if (status === "loading") {
+    if (status === "loading" || loadingService) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-white">
                 <div className="w-12 h-12 border-4 border-teal-500/20 border-t-teal-500 rounded-full animate-spin" />

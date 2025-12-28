@@ -15,6 +15,7 @@ const inter = Inter({
 });
 
 export const metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: "Care.xyz - Trusted Care Services",
   description: "Reliable babysitting, elderly care, and patient support services in Bangladesh.",
 };
@@ -27,7 +28,7 @@ export default function RootLayout({ children }) {
       >
         <SessionWrapper>
           <Navbar />
-          <main className="flex-grow">
+          <main className="grow">
             {children}
           </main>
           <Footer />
