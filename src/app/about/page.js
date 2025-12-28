@@ -1,155 +1,199 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, Heart, Users, Award, Target, BookOpen, Star, ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { Heart, Shield, Users, Target, Award, Star } from "lucide-react";
+import Image from "next/image";
 
 export default function AboutPage() {
     const stats = [
-        { label: "Families Served", value: "2,500+", icon: Heart, color: "text-rose-600", bg: "bg-rose-50" },
-        { label: "Verified Experts", value: "450+", icon: ShieldCheck, color: "text-teal-600", bg: "bg-teal-50" },
-        { label: "Cities Covered", value: "12+", icon: Target, color: "text-blue-600", bg: "bg-blue-50" },
-        { label: "Average Rating", value: "4.9/5", icon: Star, color: "text-yellow-600", bg: "bg-yellow-50" },
+        { label: "Families Served", value: "10k+", icon: HomeIcon },
+        { label: "Care Experts", value: "500+", icon: Users },
+        { label: "City Presence", value: "15+", icon: MapPinIcon },
+        { label: "Client Satisfaction", value: "98%", icon: Star },
     ];
 
     const values = [
         {
-            title: "Compassion First",
-            description: "We believe care is more than a service—it's a human connection built on empathy.",
-            icon: Heart
+            title: "Unwavering Compassion",
+            desc: "We believe care goes beyond tasks; it's about building meaningful connections and providing emotional support.",
+            icon: Heart,
+            color: "text-rose-500",
+            bg: "bg-rose-50",
         },
         {
-            title: "Verified Excellence",
-            description: "Every caregiver in our network undergo rigorous medical and background screening.",
-            icon: ShieldCheck
+            title: "Rigorous Safety",
+            desc: "Your trust is our priority. Every caregiver undergoes biometric verification and multi-stage background checks.",
+            icon: Shield,
+            color: "text-teal-600",
+            bg: "bg-teal-50",
         },
         {
-            title: "Family Integrity",
-            description: "We treat your family like our own, maintaining the highest standards of dignity.",
-            icon: Users
+            title: "Expertise First",
+            desc: "Our team consists of certified professionals trained in specialized elderly, child, and post-operative care.",
+            icon: Award,
+            color: "text-blue-600",
+            bg: "bg-blue-50",
         },
     ];
 
     return (
-        <div className="pt-44 pb-32 bg-white min-h-screen overflow-hidden">
+        <div className="bg-white min-h-screen pt-24">
             {/* Hero Section */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative mb-32">
-                <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-teal-500/5 blur-[120px] rounded-full" />
+            <section className="relative py-24 overflow-hidden">
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-slate-50/50 -z-10" />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            <h2 className="text-teal-600 font-bold tracking-widest uppercase text-sm mb-4">Our Journey</h2>
+                            <h1 className="text-5xl md:text-7xl font-bold font-heading text-slate-900 leading-[1.1] mb-8">
+                                Redefining Care for the <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-600 to-blue-600">Modern Family</span>
+                            </h1>
+                            <p className="text-xl text-slate-600 leading-relaxed mb-10">
+                                Founded in 2020, Care.xyz started with a simple belief: that everyone deserves access to high-quality, professional, and compassionate home care. We bridge the gap between families in need and verified care experts.
+                            </p>
+                            <div className="flex gap-4">
+                                <div className="flex -space-x-3">
+                                    {[1, 2, 3, 4].map((i) => (
+                                        <div key={i} className="w-12 h-12 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
+                                            <Image
+                                                src={`https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop`}
+                                                width={100}
+                                                height={100}
+                                                alt="User"
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="text-sm">
+                                    <div className="font-bold text-slate-900">Joined by 10k+ families</div>
+                                    <div className="text-slate-500">across 15+ cities</div>
+                                </div>
+                            </div>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8 }}
+                            className="relative"
+                        >
+                            <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
+                                <Image
+                                    src="https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?q=80&w=1170&auto=format&fit=crop"
+                                    width={1200}
+                                    height={1500}
+                                    alt="Caregivers laughing"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-teal-500 rounded-full blur-[80px] opacity-20" />
+                            <div className="absolute -top-8 -right-8 w-40 h-40 bg-blue-500 rounded-full blur-[80px] opacity-20" />
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
 
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
+            {/* Mission Section */}
+            <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                     <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="max-w-3xl mx-auto"
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-full text-sm font-bold mb-6 border border-teal-100">
-                            Our Story
-                        </div>
-                        <h1 className="text-5xl md:text-7xl font-bold text-slate-900 mb-8 leading-[1.1] font-heading tracking-tight">
-                            Redefining the <span className="text-teal-600">Standard</span> of Care.
-                        </h1>
-                        <p className="text-xl text-slate-600 mb-10 leading-relaxed font-inter">
-                            Care.xyz was born from a simple realization: quality care shouldn't be hard to find. We've built Bangladesh's most trusted network of specialists to ensure your loved ones receive the elite attention they deserve.
+                        <Target className="w-16 h-16 text-teal-400 mx-auto mb-8" />
+                        <h2 className="text-4xl md:text-5xl font-bold font-heading mb-8">Our Mission</h2>
+                        <p className="text-2xl text-slate-400 leading-relaxed italic font-inter font-light">
+                            "To empower families by providing a seamless, secure, and compassionate platform that connects them with world-class care providers, ensuring dignity and peace of mind for every stage of life."
                         </p>
-                        <div className="flex flex-wrap gap-4">
-                            <Link href="/services" className="px-8 py-4 bg-slate-900 text-white font-bold rounded-2xl shadow-xl shadow-slate-900/10 hover:shadow-slate-900/20 hover:-translate-y-0.5 transition-all flex items-center gap-2">
-                                Explore Services <ArrowRight size={20} />
-                            </Link>
-                            <Link href="/contact" className="px-8 py-4 bg-white border border-slate-200 text-slate-900 font-bold rounded-2xl hover:bg-slate-50 transition-all">
-                                Meet the Team
-                            </Link>
-                        </div>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="relative"
-                    >
-                        <div className="aspect-square rounded-[3rem] bg-slate-100 overflow-hidden shadow-2xl relative z-10 border-8 border-white">
-                            <img
-                                src="file:///C:/Users/imtia/.gemini/antigravity/brain/047017b1-f27d-4af0-9fa8-b04277ad8175/hero_caregiving_premium_1766915280039.png"
-                                alt="Modern Caregiving"
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-                        <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-teal-500 rounded-[2rem] -z-10 animate-pulse opacity-20" />
-                        <div className="absolute -top-10 -right-10 w-48 h-48 bg-blue-500 rounded-full -z-10 animate-blob filter blur-3xl opacity-20" />
                     </motion.div>
                 </div>
-            </div>
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-teal-600/5 blur-[120px]" />
+            </section>
 
-            {/* Stats Section */}
-            <div className="bg-slate-50 py-24 mb-32">
+            {/* Values Section */}
+            <section className="py-32">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                        {stats.map((stat, i) => (
+                    <div className="text-center mb-20">
+                        <h2 className="text-teal-600 font-bold tracking-widest uppercase text-sm mb-4">Our Values</h2>
+                        <h3 className="text-4xl md:text-5xl font-bold font-heading text-slate-900">What Drives Us Every Day</h3>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-12">
+                        {values.map((val, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.1 }}
                                 viewport={{ once: true }}
-                                className="text-center"
+                                className="group p-10 rounded-[2.5rem] bg-white border border-slate-100 shadow-xl shadow-slate-200/20 hover:shadow-2xl hover:shadow-slate-200/50 hover:-translate-y-2 transition-all duration-500"
                             >
-                                <div className={`w-12 h-12 ${stat.bg} ${stat.color} rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm`}>
-                                    <stat.icon size={24} />
+                                <div className={`w-16 h-16 ${val.bg} ${val.color} rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform duration-500`}>
+                                    <val.icon size={32} />
                                 </div>
-                                <div className="text-4xl font-bold text-slate-900 mb-1 font-heading">{stat.value}</div>
-                                <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">{stat.label}</div>
+                                <h4 className="text-2xl font-bold text-slate-900 mb-4 font-heading">{val.title}</h4>
+                                <p className="text-slate-600 leading-relaxed font-inter">{val.desc}</p>
                             </motion.div>
                         ))}
                     </div>
                 </div>
-            </div>
+            </section>
 
-            {/* Mission Section */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-32">
-                <div className="text-center max-w-3xl mx-auto mb-20">
-                    <h2 className="text-4xl font-bold text-slate-900 mb-6 font-heading">Guided by Radical Empathy</h2>
-                    <p className="text-lg text-slate-500 font-inter">
-                        Our values define every interaction we have. We're not just a platform; we're a community dedicated to the art of caregiving.
-                    </p>
+            {/* CTA Section Placeholder */}
+            <section className="py-32 bg-slate-50">
+                <div className="max-w-4xl mx-auto px-4 text-center">
+                    <h2 className="text-4xl font-bold font-heading text-slate-900 mb-8">Want to learn more about our recruitment process?</h2>
+                    <p className="text-lg text-slate-600 mb-12">We take safety seriously. Our caregivers go through a 5-step verification process before they ever step into a home.</p>
+                    <button className="px-10 py-4 bg-slate-900 text-white rounded-full font-bold shadow-xl hover:bg-slate-800 transition-all">
+                        View Safety Standards
+                    </button>
                 </div>
-
-                <div className="grid md:grid-cols-3 gap-10">
-                    {values.map((value, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.2 }}
-                            viewport={{ once: true }}
-                            className="p-10 rounded-[2.5rem] border border-slate-100 bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group"
-                        >
-                            <div className="w-16 h-16 bg-slate-900 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-teal-600 transition-all duration-500">
-                                <value.icon size={32} />
-                            </div>
-                            <h3 className="text-2xl font-bold text-slate-900 mb-4 font-heading">{value.title}</h3>
-                            <p className="text-slate-500 leading-relaxed font-inter">
-                                {value.description}
-                            </p>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Team Section Placeholder / CTA */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="relative rounded-[4rem] bg-teal-600 p-12 md:p-24 overflow-hidden shadow-2xl text-center">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
-                    <div className="relative z-10">
-                        <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 font-heading">Experience the Difference</h2>
-                        <p className="text-xl text-white/80 max-w-2xl mx-auto mb-12 font-inter leading-relaxed">
-                            Ready to give your family the best? Join thousands of satisfied households who trust Care.xyz for their most precious needs.
-                        </p>
-                        <Link href="/services" className="inline-flex items-center gap-3 px-10 py-5 bg-white text-teal-700 text-xl font-bold rounded-[2rem] hover:scale-105 transition-transform shadow-2xl">
-                            Get Started Now <ArrowRight />
-                        </Link>
-                    </div>
-                </div>
-            </div>
+            </section>
         </div>
+    );
+}
+
+function HomeIcon(props) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+    );
+}
+
+function MapPinIcon(props) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+            <circle cx="12" cy="10" r="3" />
+        </svg>
     );
 }

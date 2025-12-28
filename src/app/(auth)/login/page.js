@@ -29,13 +29,22 @@ export default function LoginPage() {
             setError("Invalid credentials. Please check your email and password.");
             setIsLoading(false);
         } else {
-            router.push("/my-bookings");
+            // Check role from session or a separate check
+            // For simplicity and immediate action, we'll fetch the session
+            const res = await fetch('/api/auth/session');
+            const session = await res.json();
+
+            if (session?.user?.role === "admin") {
+                router.push("/admin/bookings");
+            } else {
+                router.push("/my-bookings");
+            }
             router.refresh();
         }
     };
 
     const handleGoogleLogin = () => {
-        signIn("google", { callbackUrl: "/my-bookings" });
+        signIn("google");
     };
 
     return (

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronRight, LogOut, User, LayoutDashboard, Briefcase, Home } from "lucide-react";
+import { Menu, X, ChevronRight, LogOut, User, LayoutDashboard, Briefcase, Home, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Navbar = () => {
@@ -30,6 +30,8 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", href: "/", icon: Home },
     { name: "Services", href: "/services", icon: Briefcase },
+    { name: "About Us", href: "/about", icon: User },
+    { name: "Contact", href: "/contact", icon: Mail },
   ];
 
   if (session?.user) {
